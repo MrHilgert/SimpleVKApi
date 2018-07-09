@@ -17,11 +17,11 @@ void VK::LongPoll::startPolling(std::string server, std::string key, int64_t ts,
 
         d.Parse(resp.c_str());
 
-        StringBuffer sb;
-        Writer<StringBuffer> writer(sb);
-        d.Accept(writer);
+        // StringBuffer sb;
+        // Writer<StringBuffer> writer(sb);
+        // d.Accept(writer);
 
-        std::cout << sb.GetString() << std::endl;
+        // std::cout << sb.GetString() << std::endl;
 
         if (d.HasMember("ts")) l_ts = d["ts"].GetInt64();
 
