@@ -9,7 +9,7 @@ void VK::LongPoll::startPolling(std::string server, std::string key, int64_t ts,
     while (true) {
         HttpRequest req(server);
 
-        req.param("act", "a_check").param("key", key).param("wait", "25").param("mode", "2").param("version", "0").param("ts", std::to_string(l_ts));
+        req.param("act", "a_check").param("key", key).param("wait", "25").param("mode", std::to_string(2 & 8 & 64)).param("version", "0").param("ts", std::to_string(l_ts));
 
         std::string resp = req.get();
 
@@ -35,7 +35,7 @@ void VK::LongPoll::startPolling(std::string server, std::string key, int64_t ts,
             VKMSGFlags flags;
 
             VK::LongPoll::calculateMsgFlags(i[2].GetInt(), &flags);
-        
+
             upd.msgid = i[1].GetInt();
             
             upd.flags = flags;
