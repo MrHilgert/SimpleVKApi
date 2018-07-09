@@ -74,6 +74,7 @@ VKLongpollSettingsResponse VK::messages::getLongPoll() {
     return resp;
 }
 
+/*
 VKChat VK::messages::getHistory(int peer_id, int messages_count = 100, int offset = 0){
     VKChat c;
     
@@ -95,3 +96,4 @@ VKChat VK::messages::getHistory(int peer_id, int messages_count = 100, int offse
     
     return c;
 }
+*/

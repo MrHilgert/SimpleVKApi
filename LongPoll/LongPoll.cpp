@@ -1,7 +1,6 @@
 
-#include "rapidjson/writer.h"
 #include "LongPoll.h"
-
+#include "../vk/utils/JsonUtils.h"
 
 void VK::LongPoll::startPolling(std::string server, std::string key, int64_t ts, void( * callbackFunction)(struct VKLongPollUpdate)) {
 
@@ -10,7 +9,7 @@ void VK::LongPoll::startPolling(std::string server, std::string key, int64_t ts,
     while (true) {
         HttpRequest req(server);
 
-        req.param("act", "a_check").param("key", key).param("wait", "25").param("mode", "8").param("version", "0").param("ts", std::to_string(l_ts));
+        req.param("act", "a_check").param("key", key).param("wait", "25").param("mode", "2").param("version", "0").param("ts", std::to_string(l_ts));
 
         std::string resp = req.get();
 
@@ -18,11 +17,17 @@ void VK::LongPoll::startPolling(std::string server, std::string key, int64_t ts,
 
         d.Parse(resp.c_str());
 
+        StringBuffer sb;
+        Writer<StringBuffer> writer(sb);
+        d.Accept(writer);
+
+        std::cout << sb.GetString() << std::endl;
+
         if (d.HasMember("ts")) l_ts = d["ts"].GetInt64();
 
         if (d.HasMember("failed")) continue;
 
-        for (const auto & i: d["updates"].GetArray()) {
+        for (const auto& i: d["updates"].GetArray()) {
             if (i[0] != 4) continue;
             
             VKLongPollUpdate upd;
@@ -46,7 +51,8 @@ void VK::LongPoll::startPolling(std::string server, std::string key, int64_t ts,
             upd.from = upd.peerid;
 
             if(i.Size() >= 8){
-                upd.from = i[7]["from"].GetInt();
+
+                if(i[7].HasMember("from")) upd.from = std::stoi(i[7]["from"].GetString());
 
                 for(int index = 1; index <= 10; index++){
                     std::string memb;
@@ -54,7 +60,6 @@ void VK::LongPoll::startPolling(std::string server, std::string key, int64_t ts,
                     memb.append("attach").append(std::to_string(index));
 
                     if(i[7].HasMember(memb.c_str())){
-                        struct Attachment attach;
 
                         std::string type;
                         std::string val;
@@ -64,9 +69,7 @@ void VK::LongPoll::startPolling(std::string server, std::string key, int64_t ts,
                         memb.append("_type");
                         type = i[7][memb.c_str()].GetString();
 
-                        attach.str = type.append(val);
-
-                        upd.attachments[index - 1] = attach;
+                        upd.attachments[index - 1] = (Attachment) {type.append(val)};
                     }
                 }
             }

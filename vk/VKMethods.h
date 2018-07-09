@@ -19,7 +19,7 @@ namespace VK {
     namespace messages {
         VKIntResult send(int peer_id, string message, int forward_message);
         VKLongpollSettingsResponse getLongPoll();
-        VKChat getHistory(int peer_id, int messages_count, int offset = 0);
+        // VKChat getHistory(int peer_id, int messages_count, int offset = 0);
     }; // messages
 
 } // VK

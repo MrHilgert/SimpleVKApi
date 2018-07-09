@@ -12,18 +12,19 @@ struct VKParam {
     std::string value;
 };
 
+/*
 struct VKChat {};
 
 struct VKDialog : VKChat {
     int peerid;
     std::string title;
-    VKMessage messages[];
-    VKUser members[];
+    struct VKMessage messages[];
+    struct VKUser members[];
 };
 
 struct VKPrivateDialog : VKChat {
-    VKUser peer;
-    VKMessage messages[];
+    struct VKUser peer;
+    struct VKMessage messages[];
 };
 
 struct VKUser {
@@ -47,6 +48,7 @@ struct VKMessage{
 
     bool unread;
 };
+*/
 
 struct VKLongpollSettingsResponse {
     std::string server;
