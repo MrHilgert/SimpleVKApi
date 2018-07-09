@@ -1,4 +1,3 @@
-
 #include "LongPoll.h"
 #include "../vk/utils/JsonUtils.h"
 
@@ -79,7 +78,7 @@ void VK::LongPoll::startPolling(std::string server, std::string key, int64_t ts,
             callbackFunction(upd);
 
         }
-
+        
     }
 
 }

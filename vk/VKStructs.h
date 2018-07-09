@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include <iostream>
@@ -94,6 +93,5 @@ struct VKLongPollUpdate {
 
     struct Attachment attachments[10];
 };
-
 
 #endif

@@ -1,4 +1,3 @@
-
 // <shit>
 #if defined(WIN32) && !defined(UNIX)
 #define _CLEARCMD_ "clear"

@@ -13,7 +13,7 @@ namespace VK {
 
         namespace JSON {
 
-            void printJsonDocument(const Document *doc);
+            void printJsonDocument(const rapidjson::Document *doc);
             
             void printJsonVal(const rapidjson::Value *val);
 

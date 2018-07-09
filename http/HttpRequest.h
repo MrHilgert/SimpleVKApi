@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include <iostream>
@@ -80,5 +79,4 @@ class HttpRequest {
     }
 
 };
-
 #endif

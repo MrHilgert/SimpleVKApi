@@ -1,4 +1,3 @@
-
 #include "CommandManager.h"
 
 CommandManager::CommandManager(){};
